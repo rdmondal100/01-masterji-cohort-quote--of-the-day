@@ -3,8 +3,8 @@
     --background:#ffffff;
     --foreground:#000000;
     --card:#b3b7cc5e;
-    --primary:#465582;
-    --color:#b3b7cc;
+    --primary:#b0c606;
+    --color:#d3d4d9;
 }
 *{
     margin: 0;
@@ -22,14 +22,17 @@ body{
 
 
 .main-container{
-    min-height: 100vh;
-    min-width: 100vw; 
+    height: 100vh;
+    width: 100vw; 
     background-color:var(--background);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 50px 10px;
+    /* background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; */
 }
 
 .heading{
@@ -50,6 +53,7 @@ body{
     gap: 10px;
     background-color: var(--card);
     border-radius: 8px;
+    backdrop-filter: blur(20px);
 
 
 }
@@ -76,10 +80,10 @@ body{
 .quote{
     font-size: 30px;
     padding: 10px;
-    backdrop-filter: blur(8px);
     text-align: center;
     min-width: 200px;
     min-height: 100px;
+    color: var(--background);
 }
 
 .author{
@@ -89,7 +93,7 @@ body{
     justify-content: end;
     font-size: 20px;
     font-style: italic;
-    color: var(--primary);
+    color: var(--background);
     min-width: 100px;
     min-height: 50px;
 }
@@ -103,7 +107,7 @@ body{
     cursor: pointer;
     gap: 12px;
     text-decoration: none;
-    color: var(--foreground);
+    color: var(--color);
     
 }
 .share:hover{
@@ -127,5 +131,5 @@ body{
     border: none;
     font-size: 20px;
     cursor: pointer;
-
 }
+
