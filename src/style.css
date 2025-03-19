@@ -45,16 +45,38 @@ body{
     flex-direction: column;
     position: relative;
     width: 100%;
+    max-width: 800px;
     padding: 30px;
     gap: 10px;
+    background-color: var(--card);
+    border-radius: 8px;
+
+
 }
+
+#copy-quote{
+    font-size: 25px;
+    color: var(--primary);
+    position: absolute;
+    right: 28px;
+    top: 0px;
+    cursor: pointer;
+}
+#copy-quote:hover{
+    transform: scale(1.2);
+}
+
+.copied{
+    color: green!important;
+    right: 2px !important;
+    transform: scale(.7) !important;
+}
+
 
 .quote{
     font-size: 30px;
-    background-color: var(--card);
     padding: 10px;
     backdrop-filter: blur(8px);
-    border-radius: 8px;
     text-align: center;
     min-width: 200px;
     min-height: 100px;
