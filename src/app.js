@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 quoteElement.innerText =`❝ ${currentQuote} ❞` 
             }
             if (quoteAuthorElement && currentAuthor) {
-                quoteAuthorElement.innerText = currentAuthor
+                quoteAuthorElement.innerText = `-${currentAuthor}`
             }
         } catch (error) {
             console.log("Something went wrong:::", error)
@@ -124,6 +124,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    
+    //share on twitter
+    const shareOnTwitterBtn =  document.getElementById("share-on-twitter")
+    if(shareOnTwitterBtn && quoteContainer){
+        shareOnTwitterBtn.addEventListener('click',()=>{
+            const content = encodeURIComponent( quoteContainer.innerText)
+            if(content){
+                const formatedAuthorName = String(currentAuthor).replaceAll(" ","_")
+                console.log(formatedAuthorName)
+                const hashtags = [formatedAuthorName, "quote", "todays_quote","masterji_assignment","chai_aur_code"].map((hastag)=>(encodeURIComponent(hastag))).join(",")
+console.log(hashtags)
+                shareOnTwitterBtn.href = `https://x.com/intent/post?text=${content}%0A%0A&hashtags=${hashtags}`
+            }
+
+            // console.log(content)
+        })
+    }
 
 })

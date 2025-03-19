@@ -94,6 +94,25 @@ body{
     min-height: 50px;
 }
 
+.share{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 25px;
+    bottom: 10px;
+    cursor: pointer;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--foreground);
+    
+}
+.share:hover{
+    color: var(--primary);
+}
+.share:hover img{
+    transform: scale(1.1);
+}
+
 .button-container{
     display: flex;
     justify-content: center;
