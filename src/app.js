@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const canvas =  await html2canvas(quoteContainer)
                 console.log(canvas)
                 if(canvas){
-                    const mainElement = document.getElementById("main-id")
                     //convert it to bage64 image
                     const image = canvas.toDataURL("image/png")
                     const downloadLink = document.createElement('a')
@@ -216,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
                     }
-                    mainElement.appendChild(downloadLink)
                 }
             }
         
