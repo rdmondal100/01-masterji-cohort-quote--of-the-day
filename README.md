@@ -6,8 +6,8 @@ Live Site: [Quote of The Day](https://masterjiquoteoftheday.netlify.app/)
 ## Overview
 
 **Quote Of The Day** is designed as a simple and elegant application to deliver daily inspiration. Built with HTML, CSS, and JavaScript, the project leverages popular libraries such as [Axios](https://axios-http.com/) for HTTP requests and [html2canvas](https://html2canvas.hertzen.com/) for exporting the displayed quote as an image. Additionally, the application integrates two third-party APIs:
-- **Unsplash API** for fetching a random background image.
-- **FreeAPI** for retrieving a random quote.
+- **[Unsplash API](https://unsplash.com/documentation#get-a-random-photo)** for fetching a random background image.
+- **[FreeAPI](https://freeapi.hashnode.space/api-guide/apireference/getARandomQuote)** for retrieving a random quote.
 
 
 ## Features
