@@ -1,7 +1,11 @@
 # Quote Of The Day
 A lightweight web application that displays a motivational quote along with its author with a random background image. The project offers features such as exporting the quote as an image, copying it to the clipboard, and sharing it on Twitter.
 
-Live Site: [Quote of The Day](https://masterjiquoteoftheday.netlify.app/)
+**Live Site:** [Quote of The Day](https://masterjiquoteoftheday.netlify.app/)
+
+**Screenshot of the Web App:**
+![Alt text](./src//assets/quote%20of%20the%20day%20.png)
+
 
 ## Overview
 

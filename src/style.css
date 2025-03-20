@@ -87,7 +87,8 @@ body {
     text-align: center;
     min-width: 200px;
     min-height: 100px;
-    color: var(--background);
+    color: var(--foreground);
+    font-weight: 700;
 }
 
 .author {
@@ -97,7 +98,7 @@ body {
     justify-content: end;
     font-size: 20px;
     font-style: italic;
-    color: var(--background);
+    color: var(--color);
     min-width: 100px;
     min-height: 50px;
 }
