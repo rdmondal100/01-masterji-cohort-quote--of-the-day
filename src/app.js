@@ -161,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //copy the quote 
     const copyQuoteBtn = document.getElementById("copy-quote")
     const quoteContainer = document.getElementById("quote-content-id")
-    // console.log(copyQuoteBtn)
     if (copyQuoteBtn && quoteContainer) {
         copyQuoteBtn.addEventListener('click', async () => {
             try {
