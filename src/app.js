@@ -1,63 +1,75 @@
 import { getNewQuoteDataFromApi } from "./Services/getNewQuote.js"
 import { getRandomImageFromApi } from "./Services/getRandomImage.js"
 
-
+//apply the js after dom content loaded 
 document.addEventListener('DOMContentLoaded', () => {
 
-
+    //local storage key
     const QUOTE_KEY = "RIDAY_KEY"
     const RANDOM_IMAGE_ARRAY = 'RANDOM_IMG_ARRAY'
+
+    // initialize the variables
+    const mainElement = document.getElementById('main-id')
     let today = new Date().toLocaleDateString()
     let currentQuote = null
     let currentAuthor = null
     let savedQuoteDate = null
     const defaultImage = 'https://www.riday.tech/assets/aboutImg-yN3zcSZ9.jpeg'
+
+    //get the saved images to use if failed to get image from api
     const localImageArray = JSON.parse(localStorage.getItem(RANDOM_IMAGE_ARRAY)) || []
 
 
-    //get random image from api
-    const mainElement = document.getElementById('main-id')
-    
+
     //get saved images form local storage
     //passing true it will give random img else it will give the last one
-    const getLocalRandomImage = (random=false) => {
+    const getLocalRandomImage = (random = false) => {
+        //if random is false it will set the last image of the array else choose a rnadom image from the local storage
         localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
 
         const lengthOfLocalArray = localImageArray.length
+        //generate a random index
         const randomIndex = Math.floor(Math.random() * (lengthOfLocalArray))
-        const index = random? randomIndex : localImageArray.length-1;
-        console.log(index)
-        console.log(localImageArray.length)
+        //choose random or last image
+        const index = random ? randomIndex : localImageArray.length - 1;
         const imageUrl = localImageArray[index]
         if (imageUrl) {
+            //set the background image
             mainElement.style.background = `url("${imageUrl}")`;
-            const lastImage = localImageArray.splice(index,1)[0]
+            //removed the used image and push it to the last so that we can get the same image when we reload the page
+            const lastImage = localImageArray.splice(index, 1)[0]
             localImageArray.push(lastImage)
             localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
 
         } else {
+            //if failed to get image from local storage load the default image
             mainElement.style.background = `url("${defaultImage}")`;
         }
     }
 
     //get the new image from api
     const getNewRandomImage = async () => {
-        const imageUrl = await getRandomImageFromApi()
+        try {
+            //image url from apiservice 
+            const imageUrl = await getRandomImageFromApi()
 
-        if (imageUrl) {
-            mainElement.style.background = `url("${imageUrl}")`;
-            if (localImageArray.length < 20) {
-                console.log(localImageArray.length)
-                localImageArray.push(imageUrl)
+            if (imageUrl) {
+                //set the background image
+                mainElement.style.background = `url("${imageUrl}")`;
+
+                //limit the local storage image to 20
+                if (localImageArray.length < 20) {
+                    localImageArray.push(imageUrl)
+                } else {
+                    localImageArray.shift()
+                    localImageArray.push(imageUrl)
+                }
+                localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
             } else {
-                localImageArray.shift()
-                localImageArray.push(imageUrl)
-                console.log(localImageArray.length)
-
+                getLocalRandomImage(true)
             }
-            localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
-        } else {
-            getLocalRandomImage(true)
+        } catch (error) {
+            console.log("Failed to get random image form api::: ", error)
         }
     }
 
@@ -65,17 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch a random quote from the API.
     const getNewQuote = async () => {
         try {
+            //quote from apiservice
             let { data } = await getNewQuoteDataFromApi()
             if (data) {
-                console.log(data)
                 currentQuote = data.content
                 currentAuthor = data.author
                 const savedQuoteDate = new Date().toLocaleDateString()
                 data = { ...data, savedQuoteDate }
                 localStorage.setItem(QUOTE_KEY, JSON.stringify(data))
             }
-            console.log(currentQuote)
-            console.log(currentAuthor)
         } catch (error) {
             console.log("Failed to get the quote:::", error)
         }
@@ -86,12 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = JSON.parse(localStorage.getItem(QUOTE_KEY)) || {}
 
         if (data) {
-            // console.log(data)
             currentQuote = data.content
             currentAuthor = data.author
             savedQuoteDate = data.savedQuoteDate
-
-
         }
     }
 
@@ -99,12 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Display the quote and author on the page.
     const displyNewQuoteandImageOnTheUi = async (newQuote = false) => {
         try {
-            // set the new quote 
+            // set the new quote and image
             if (newQuote) {
                 await getNewQuote()
                 await getNewRandomImage()
 
             } else {
+                // get quote and image from local storage 
                 getLocalQuote()
                 getLocalRandomImage()
             }
@@ -130,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Render the quotes and img from local storage on every reload
+    // Render the same quotes and img from local storage on every reload
     getLocalRandomImage()
     displyNewQuoteandImageOnTheUi(false)
 
@@ -169,7 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 }, 3 * 1000);
 
-                console.log("copied")
             } catch (error) {
                 console.log("Failed to copy::: ", error)
                 copyQuoteBtn.style.color = "red"
@@ -187,40 +194,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const content = encodeURIComponent(quoteContainer.innerText)
             if (content) {
                 const formatedAuthorName = String(currentAuthor).replaceAll(" ", "_")
-                console.log(formatedAuthorName)
+                //set the hastags on twitter automatically when sharing, aditional feature not asked
                 const hashtags = [formatedAuthorName, "quote", "todays_quote", "masterji_assignment", "chai_aur_code"].map((hastag) => (encodeURIComponent(hastag))).join(",")
-                console.log(hashtags)
                 shareOnTwitterBtn.href = `https://x.com/intent/post?text=${content}%0A%0A&hashtags=${hashtags}`
             }
         })
     }
 
+
     //save the quote image to local computer
     const exportBtn = document.getElementById("export-id")
-    const saveQuoteImageToLocalComputer = async ()=>{
+    const saveQuoteImageToLocalComputer = async () => {
         const quoteContainer = document.getElementById("quote-container-id")
 
-            if(quoteContainer){
-                const canvas =  await html2canvas(quoteContainer)
-                console.log(canvas)
-                if(canvas){
-                    //convert it to bage64 image
-                    const image = canvas.toDataURL("image/png")
-                    const downloadLink = document.createElement('a')
-                    if(downloadLink){
-                        downloadLink.href = image
-                        downloadLink.download = "quote.png"; 
-                        console.log(downloadLink)
-                        document.body.appendChild(downloadLink);
-                        downloadLink.click();
-                        document.body.removeChild(downloadLink);
-                    }
+        if (quoteContainer) {
+            const canvas = await html2canvas(quoteContainer)
+            if (canvas) {
+                //convert it to bage64 image
+                const image = canvas.toDataURL("image/png")
+                //creating the downloading features
+                const downloadLink = document.createElement('a')
+                if (downloadLink) {
+                    downloadLink.href = image
+                    downloadLink.download = "quote.png";
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
                 }
             }
-        
-        
+        }
+
+
     }
-    if(exportBtn){
+    if (exportBtn) {
         exportBtn.addEventListener('click', saveQuoteImageToLocalComputer)
     }
 
