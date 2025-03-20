@@ -21,13 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
     //get saved images form local storage
     //passing true it will give random img else it will give the last one
     const getLocalRandomImage = (random=false) => {
+        localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
+
         const lengthOfLocalArray = localImageArray.length
         const randomIndex = Math.floor(Math.random() * (lengthOfLocalArray))
         const index = random? randomIndex : localImageArray.length-1;
-        console.log(randomIndex)
+        console.log(index)
+        console.log(localImageArray.length)
         const imageUrl = localImageArray[index]
         if (imageUrl) {
             mainElement.style.background = `url("${imageUrl}")`;
+            const lastImage = localImageArray.splice(index,1)[0]
+            localImageArray.push(lastImage)
+            localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
+
         } else {
             mainElement.style.background = `url("${defaultImage}")`;
         }
@@ -40,10 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (imageUrl) {
             mainElement.style.background = `url("${imageUrl}")`;
             if (localImageArray.length < 20) {
+                console.log(localImageArray.length)
                 localImageArray.push(imageUrl)
             } else {
-                localImageArray.unshift()
+                localImageArray.shift()
                 localImageArray.push(imageUrl)
+                console.log(localImageArray.length)
+
             }
             localStorage.setItem(RANDOM_IMAGE_ARRAY, JSON.stringify(localImageArray))
         } else {
@@ -184,5 +194,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
     }
+
+    //save the quote image to local computer
+    const exportBtn = document.getElementById("export-id")
+    const saveQuoteImageToLocalComputer = async ()=>{
+        const quoteContainer = document.getElementById("quote-container-id")
+
+            if(quoteContainer){
+                const canvas =  await html2canvas(quoteContainer)
+                console.log(canvas)
+                if(canvas){
+                    const mainElement = document.getElementById("main-id")
+                    //convert it to bage64 image
+                    const image = canvas.toDataURL("image/png")
+                    const downloadLink = document.createElement('a')
+                    if(downloadLink){
+                        downloadLink.href = image
+                        downloadLink.download = "quote.png"; 
+                        console.log(downloadLink)
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                    }
+                    mainElement.appendChild(downloadLink)
+                }
+            }
+        
+        
+    }
+    if(exportBtn){
+        exportBtn.addEventListener('click', saveQuoteImageToLocalComputer)
+    }
+
+
 
 })

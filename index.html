@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./src/style.css">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -19,7 +21,10 @@
 
 
         <!-- quote start -->
-        <div class="quote-container " >
+        <div class="quote-container "  id="quote-container-id">
+
+            <!-- Export to local computer -->
+            <div class="export" id="export-id"><span>Export</span><img src="./src/assets/export.png" alt="export icon" width="20" height="20"></div>
 
             <!-- copy to clipboard -->
             <span id="copy-quote" class="">&#10064</span>

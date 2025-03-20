@@ -113,9 +113,26 @@ body{
 .share:hover{
     color: var(--primary);
 }
-.share:hover img{
-    transform: scale(1.1);
+
+.export{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 150px;
+    bottom: 10px;
+    cursor: pointer;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--color);
 }
+.export img{
+    transform: rotate(180deg);
+
+}
+.export:hover{
+    color: var(--primary);
+}
+
 
 .button-container{
     display: flex;
