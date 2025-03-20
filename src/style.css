@@ -3,7 +3,7 @@
     --background:#ffffff;
     --foreground:#000000;
     --card:#b3b7cc5e;
-    --primary:#b0c606;
+    --primary:#3B82F6;
     --color:#0e0478;
 }
 *{
@@ -40,7 +40,10 @@ body{
     font-size: 50px; 
     font-weight: bold; 
     color: var(--primary);
-
+    background-color: var(--card);
+    padding: 10px 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
 }
 
 .quote-container{
