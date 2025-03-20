@@ -1,19 +1,19 @@
-
-:root{
-    --background:#ffffff;
-    --foreground:#000000;
-    --card:#b3b7cc5e;
-    --primary:#3B82F6;
-    --color:#0e0478;
+:root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #b3b7cc5e;
+    --primary: #3B82F6;
+    --color: #0e0478;
 }
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -21,10 +21,10 @@ body{
 }
 
 
-.main-container{
+.main-container {
     height: 100vh;
-    width: 100vw; 
-    background-color:var(--background);
+    width: 100vw;
+    background-color: var(--background);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,10 +35,10 @@ body{
     background-size: cover; */
 }
 
-.heading{
+.heading {
     text-align: center;
-    font-size: 50px; 
-    font-weight: bold; 
+    font-size: 50px;
+    font-weight: bold;
     color: var(--primary);
     background-color: var(--card);
     padding: 10px 20px;
@@ -46,7 +46,7 @@ body{
     backdrop-filter: blur(8px);
 }
 
-.quote-container{
+.quote-container {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -61,7 +61,7 @@ body{
 
 }
 
-#copy-quote{
+#copy-quote {
     font-size: 25px;
     color: var(--primary);
     position: absolute;
@@ -69,18 +69,19 @@ body{
     top: 0px;
     cursor: pointer;
 }
-#copy-quote:hover{
+
+#copy-quote:hover {
     transform: scale(1.2);
 }
 
-.copied{
-    color: green!important;
+.copied {
+    color: green !important;
     right: 2px !important;
     transform: scale(.7) !important;
 }
 
 
-.quote{
+.quote {
     font-size: 30px;
     padding: 10px;
     text-align: center;
@@ -89,7 +90,7 @@ body{
     color: var(--background);
 }
 
-.author{
+.author {
     position: relative;
     right: 0;
     display: flex;
@@ -101,7 +102,7 @@ body{
     min-height: 50px;
 }
 
-.share{
+.share {
     display: flex;
     align-items: center;
     position: absolute;
@@ -111,13 +112,14 @@ body{
     gap: 12px;
     text-decoration: none;
     color: var(--color);
-    
+
 }
-.share:hover{
+
+.share:hover {
     color: var(--primary);
 }
 
-.export{
+.export {
     display: flex;
     align-items: center;
     position: absolute;
@@ -128,24 +130,26 @@ body{
     text-decoration: none;
     color: var(--color);
 }
-.export img{
+
+.export img {
     transform: rotate(180deg);
 
 }
-.export:hover{
+
+.export:hover {
     color: var(--primary);
 }
 
 
-.button-container{
+.button-container {
     display: flex;
     justify-content: center;
 }
 
-.generate-button{
+.generate-button {
     background-color: var(--primary);
     color: white;
-    font-weight:600;
+    font-weight: 600;
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
@@ -153,3 +157,18 @@ body{
     cursor: pointer;
 }
 
+
+
+/* responsive */
+@media(max-width:600px) {
+    .heading {
+        font-size: 32px;
+
+    }
+    .quote {
+        font-size: 22px;
+    }
+    .author{
+        font-size: 20px;
+    }
+}
